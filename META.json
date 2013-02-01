@@ -42,6 +42,7 @@
          "requires" : {
             "perl" : "5.008001",
             "strict" : "0",
+            "version" : "0.9901",
             "warnings" : "0"
          }
       },
