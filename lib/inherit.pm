@@ -6,6 +6,11 @@ package inherit;
 # ABSTRACT: Like parent, but with version checks
 # VERSION
 
+use version 0.9901; # sane UNIVERSAL::VERSION, more or less
+
+# module name regular expression
+my $mod_re = qr/^[A-Z_a-z][0-9A-Z_a-z]*(?:(?:::|')[0-9A-Z_a-z]+)*$/;
+
 sub import {
     my $class = shift;
 
@@ -19,7 +24,7 @@ sub import {
 
     while ( @_ ) {
         my $module = shift @_;
-        my $version = @_ && _is_version($_[0]) ? shift(@_) : 0;
+        my $version = (@_ && $_[0] !~ $mod_re) ? shift(@_) : 0;
         if ( $module eq $inheritor ) {
             warn "Class '$inheritor' tried to inherit from itself\n";
         }
@@ -31,12 +36,6 @@ sub import {
             push @{"$inheritor\::ISA"}, $module;
         };
     }
-}
-
-# if doesn't start with a letter, or starts with 'v' but has a '.'
-sub _is_version {
-    my ($arg) = @_;
-    return $arg !~ m{^[a-z]}i || $arg =~ m{^v[0-9]+\.};
 }
 
 1;
@@ -57,10 +56,8 @@ __END__
 Allows you to both load one or more modules, while setting up inheritance from
 those modules at the same time.
 
-If a module in the import list is followed by something that looks like a
-version number, the C<VERSION> method will be called to ensure a minimum version.
-Note that "v2" is a valid module name, so a version with a leading "v" must
-have one or more decimal points ("v2.0.0").
+If a module in the import list is followed by something that doesn't look like
+a legal module name, the C<VERSION> method will be called with it as an argument;
 
 The synopsis example is mostly similar in effect to
 
@@ -73,17 +70,14 @@ The synopsis example is mostly similar in effect to
         push @ISA, qw(Foo Bar Baz);
     }
 
-You can provide anything legal for the L<VERSION> method.  If you have
-Perl 5.10 or later, anything your L<version.pm> will accept is OK.
+Dotted-decimal versions should be given as a string, not a raw v-string, and
+must include at least one decimal point.
 
-    package My::Class;
-    use inherit 'Other::Class' => v1.2.3; # v-string
+    use inherit 'Bar' => v65.65.65; # BAD: loads AAA.pm
 
-    package Wibble;
-    use inherit 'Wobble' => 'v0.10.0';    # strings OK
+    use inherit 'Bar' => 'v6';      # BAD: loads v6.pm
 
-    package Crazy;
-    use inherit 'InProgress' => '2.00_01' # alpha version
+    use inherit 'Foo' => 'v0.10.0'; # OK
 
 If the first import argument is C<-norequire>, no files will be loaded
 (but any versions given will still be checked).

@@ -1,5 +1,5 @@
 use strict;
-use Test::More tests => 13;
+use Test::More tests => 14;
 use lib 't/lib';
 
 eval "package Foo; use inherit Versioned => 0.4; 1";
@@ -40,5 +40,8 @@ is( $@, '', "pass string alpha v-string version check");
 
 eval "package Foo; use inherit DotVersioned =>'v1.0_1'; 1";
 like( $@, qr/this is only/, "fail string alpha v-string version check");
+
+eval "package Foo; use inherit DotVersioned => v65.0.65; 1";
+like( $@, qr/this is only/, "fail v65.0.65 version check");
 
 
