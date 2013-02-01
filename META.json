@@ -40,6 +40,7 @@
       },
       "runtime" : {
          "requires" : {
+            "Module::Load" : "0.24",
             "perl" : "5.008001",
             "strict" : "0",
             "version" : "0.9901",
