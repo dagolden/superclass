@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 package inherit;
-# ABSTRACT: No abstract given for inherit
+# ABSTRACT: Like parent, but with version checks
 # VERSION
 
 sub import {

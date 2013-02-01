@@ -2,7 +2,7 @@
 
 =head1 NAME
 
-inherit - No abstract given for inherit
+inherit - Like parent, but with version checks
 
 =head1 VERSION
 

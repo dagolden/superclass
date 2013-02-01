@@ -1,5 +1,5 @@
 {
-   "abstract" : "No abstract given for inherit",
+   "abstract" : "Like parent, but with version checks",
    "author" : [
       "David Golden <dagolden@cpan.org>"
    ],
