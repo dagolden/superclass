@@ -7,6 +7,7 @@ package inherit;
 # VERSION
 
 use version 0.9901; # sane UNIVERSAL::VERSION, more or less
+use Module::Load 0.24 (); # apostrophe support
 
 # module name regular expression
 my $mod_re = qr/^[A-Z_a-z][0-9A-Z_a-z]*(?:(?:::|')[0-9A-Z_a-z]+)*$/;
@@ -22,14 +23,13 @@ sub import {
         $no_require++;
     }
 
-    while ( @_ ) {
+    while (@_) {
         my $module = shift @_;
-        my $version = (@_ && $_[0] !~ $mod_re) ? shift(@_) : 0;
+        my $version = ( @_ && $_[0] !~ $mod_re ) ? shift(@_) : 0;
         if ( $module eq $inheritor ) {
             warn "Class '$inheritor' tried to inherit from itself\n";
         }
-        (my $file = $module) =~ s{::|'}{/}g;
-        require "$file.pm" unless $no_require; # dies if the file is not found
+        Module::Load::load($module) unless $no_require; # dies if not found
         $module->VERSION($version) if $version; # don't check '0'
         {
             no strict 'refs';
