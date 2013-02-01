@@ -7,6 +7,9 @@ allow = $@ $!
 [TestingAndDebugging::ProhibitNoStrict]
 allow = refs
 
+# Turn off specially for this module
+[-Modules::RequireBarewordIncludes]
+
 # Turn these off
 [-BuiltinFunctions::ProhibitStringyEval]
 [-ControlStructures::ProhibitPostfixControls]

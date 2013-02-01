@@ -114,11 +114,11 @@ Attempting to inherit from yourself generates a warning.
 
 =head1 HISTORY
 
-This module wss forked from L<parent> to add version checks.
+This module was forked from L<parent> to add version checks.
 The L<parent> module was forked from L<base> to remove the cruft
 that had accumulated in it.
 
-Authors of or contributors to precessor modules include Rafaël Garcia-Suarez,
+Authors of or contributors to predecessor modules include Rafaël Garcia-Suarez,
 Bart Lateur, Max Maischein, Anno Siegel, and Michael Schwern
 
 =cut
