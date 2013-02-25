@@ -2,7 +2,7 @@ use 5.008001;
 use strict;
 use warnings;
 
-package inherit;
+package superclass;
 # ABSTRACT: Like parent, but with version checks
 # VERSION
 
@@ -49,7 +49,7 @@ __END__
 =head1 SYNOPSIS
 
     package Baz;
-    use inherit qw(Foo Bar), 'Baz' => 1.23;
+    use superclass qw(Foo Bar), 'Baz' => 1.23;
 
 =head1 DESCRIPTION
 
@@ -73,11 +73,11 @@ The synopsis example is mostly similar in effect to
 Dotted-decimal versions should be given as a string, not a raw v-string, and
 must include at least one decimal point.
 
-    use inherit 'Bar' => v65.65.65; # BAD: loads AAA.pm
+    use superclass 'Bar' => v65.65.65; # BAD: loads AAA.pm
 
-    use inherit 'Bar' => 'v6';      # BAD: loads v6.pm
+    use superclass 'Bar' => 'v6';      # BAD: loads v6.pm
 
-    use inherit 'Foo' => 'v0.10.0'; # OK
+    use superclass 'Foo' => 'v0.10.0'; # OK
 
 If the first import argument is C<-norequire>, no files will be loaded
 (but any versions given will still be checked).
@@ -87,7 +87,7 @@ or a differently named file:
 
   package MyHash;
   use Tie::Hash;
-  use inherit -norequire, 'Tie::StdHash';
+  use superclass -norequire, 'Tie::StdHash';
 
 =head1 DIAGNOSTICS
 
@@ -98,7 +98,7 @@ or a differently named file:
 Attempting to inherit from yourself generates a warning.
 
     package Foo;
-    use inherit 'Foo';
+    use superclass 'Foo';
 
 =back
 

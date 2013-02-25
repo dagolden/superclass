@@ -9,7 +9,7 @@ use lib 't/lib';
 
 {
     package Child;
-    use inherit -norequire, 'MyParent';
+    use superclass -norequire, 'MyParent';
 }
 
 my $obj = {};

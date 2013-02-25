@@ -13,7 +13,7 @@ use vars qw($got_here);
 my $res = eval q{
     package MyTest;
 
-    use inherit 'FileThatOnlyExistsAsPMC';
+    use superclass 'FileThatOnlyExistsAsPMC';
 
     1
 };

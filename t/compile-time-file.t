@@ -4,18 +4,18 @@ use lib 't/lib';
 
 {
     package Child;
-    use inherit 'Dummy';
+    use superclass 'Dummy';
 }
 
 {
     package Child2;
     require Dummy;
-    use inherit -norequire, 'Dummy::InlineChild';
+    use superclass -norequire, 'Dummy::InlineChild';
 }
 
 {
     package Child3;
-    use inherit "Dummy'Outside";
+    use superclass "Dummy'Outside";
 }
 
 my $obj = {};

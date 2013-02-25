@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "inherit",
+   "name" : "superclass",
    "no_index" : {
       "directory" : [
          "t",
@@ -50,31 +50,34 @@
       "test" : {
          "requires" : {
             "Config" : "0",
+            "ExtUtils::MakeMaker" : "0",
             "File::Find" : "0",
+            "File::Spec::Functions" : "0",
             "File::Temp" : "0",
+            "List::Util" : "0",
             "Test::More" : "0",
             "vars" : "0"
          }
       }
    },
    "provides" : {
-      "inherit" : {
-         "file" : "lib/inherit.pm",
-         "version" : "0.001"
+      "superclass" : {
+         "file" : "lib/superclass.pm",
+         "version" : "0.002"
       }
    },
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/dagolden/inherit/issues"
+         "web" : "https://github.com/dagolden/superclass/issues"
       },
-      "homepage" : "https://metacpan.org/release/inherit",
+      "homepage" : "https://metacpan.org/release/superclass",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/dagolden/inherit.git",
-         "web" : "https://github.com/dagolden/inherit"
+         "url" : "git://github.com/dagolden/superclass.git",
+         "web" : "https://github.com/dagolden/superclass"
       }
    },
-   "version" : "0.001"
+   "version" : "0.002"
 }
 

@@ -2,7 +2,7 @@ use strict;
 use Test::More tests => 10;
 use lib 't/lib';
 
-require_ok 'inherit';
+require_ok 'superclass';
 
 
 package No::Version;
@@ -12,17 +12,17 @@ sub VERSION { 42 }
 
 package Test::Version;
 
-use inherit -norequire, 'No::Version';
+use superclass -norequire, 'No::Version';
 ::is( $No::Version::VERSION, undef,          '$VERSION gets left alone' );
 
-# Test Inverse: inherit.pm should not clobber existing $VERSION
+# Test Inverse: superclass.pm should not clobber existing $VERSION
 package Has::Version;
 
 BEGIN { $Has::Version::VERSION = '42' };
 
 package Test::Version2;
 
-use inherit -norequire, 'Has::Version';
+use superclass -norequire, 'Has::Version';
 ::is( $Has::Version::VERSION, 42 );
 
 package main;
@@ -32,7 +32,7 @@ my $eval1 = q{
     package Eval1;
     {
       package Eval2;
-      use inherit -norequire, 'Eval1';
+      use superclass -norequire, 'Eval1';
       $Eval2::VERSION = "1.02";
     }
     $Eval1::VERSION = "1.01";
@@ -48,15 +48,15 @@ is( $Eval1::VERSION, '1.01' );
 is( $Eval2::VERSION, '1.02' );
 
 
-eval q{use inherit 'reallyReAlLyNotexists'};
+eval q{use superclass 'reallyReAlLyNotexists'};
 like( $@, q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/}, 'baseclass that does not exist');
 
-eval q{use inherit 'reallyReAlLyNotexists'};
+eval q{use superclass 'reallyReAlLyNotexists'};
 like( $@, q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/}, '  still failing on 2nd load');
 {
     my $warning;
     local $SIG{__WARN__} = sub { $warning = shift };
-    eval q{package HomoGenous; use inherit 'HomoGenous';};
+    eval q{package HomoGenous; use superclass 'HomoGenous';};
     like($warning, q{/^Class 'HomoGenous' tried to inherit from itself/},
                                           '  self-inheriting');
 }
@@ -66,7 +66,7 @@ like( $@, q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/}, '  still failing
 
     package Test::Version3;
 
-    use inherit -norequire, 'Has::Version_0';
+    use superclass -norequire, 'Has::Version_0';
     ::is( $Has::Version_0::VERSION, 0, '$VERSION==0 preserved' );
 }
 

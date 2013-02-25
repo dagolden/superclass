@@ -7,7 +7,7 @@ use vars qw($got_here);
 my $res = eval q{
     package MyTest;
 
-    use inherit 'ReturnsFalse';
+    use superclass 'ReturnsFalse';
 
     $main::got_here++
 };
