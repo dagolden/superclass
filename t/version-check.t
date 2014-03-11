@@ -17,13 +17,13 @@ like( $@, qr/this is only/, "fail integer version check");
 eval "package Foo; use superclass DotVersioned => v1.0.0; 1";
 is( $@, '', "pass v-string version check");
 
-eval "package Foo; use superclass DotVersioned => v1.1; 1";
+eval "package Foo; use superclass DotVersioned => v1.1.0; 1";
 like( $@, qr/this is only/, "fail v-string version check");
 
 eval "package Foo; use superclass DotVersioned => 'v1.0.0'; 1";
 is( $@, '', "pass string v-string version check");
 
-eval "package Foo; use superclass DotVersioned =>'v1.1'; 1";
+eval "package Foo; use superclass DotVersioned =>'v1.1.0'; 1";
 like( $@, qr/this is only/, "fail string v-string version check");
 
 eval "package Foo; use superclass 'Dummy', Versioned => 0.4, 'Dummy::Outside'; 1";
