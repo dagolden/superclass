@@ -3,11 +3,13 @@ use Test::More tests => 3;
 use lib 't/lib';
 
 {
+
     package MyParent;
     sub exclaim { "I CAN HAS PERL?" }
 }
 
 {
+
     package Child;
     use superclass -norequire, 'MyParent';
 }

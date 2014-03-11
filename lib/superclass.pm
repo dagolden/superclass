@@ -30,7 +30,7 @@ sub import {
             warn "Class '$inheritor' tried to inherit from itself\n";
         }
         Module::Load::load($module) unless $no_require; # dies if not found
-        $module->VERSION($version) if $version; # don't check '0'
+        $module->VERSION($version) if $version;         # don't check '0'
         {
             no strict 'refs';
             push @{"$inheritor\::ISA"}, $module;

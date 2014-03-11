@@ -4,7 +4,6 @@ use lib 't/lib';
 
 require_ok 'superclass';
 
-
 package No::Version;
 
 use vars qw($Foo);
@@ -13,12 +12,12 @@ sub VERSION { 42 }
 package Test::Version;
 
 use superclass -norequire, 'No::Version';
-::is( $No::Version::VERSION, undef,          '$VERSION gets left alone' );
+::is( $No::Version::VERSION, undef, '$VERSION gets left alone' );
 
 # Test Inverse: superclass.pm should not clobber existing $VERSION
 package Has::Version;
 
-BEGIN { $Has::Version::VERSION = '42' };
+BEGIN { $Has::Version::VERSION = '42' }
 
 package Test::Version2;
 
@@ -47,18 +46,28 @@ is( $Eval1::VERSION, '1.01' );
 
 is( $Eval2::VERSION, '1.02' );
 
+eval q{use superclass 'reallyReAlLyNotexists'};
+like(
+    $@,
+    q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/},
+    'baseclass that does not exist'
+);
 
 eval q{use superclass 'reallyReAlLyNotexists'};
-like( $@, q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/}, 'baseclass that does not exist');
-
-eval q{use superclass 'reallyReAlLyNotexists'};
-like( $@, q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/}, '  still failing on 2nd load');
+like(
+    $@,
+    q{/^Can't locate reallyReAlLyNotexists.pm in \@INC/},
+    '  still failing on 2nd load'
+);
 {
     my $warning;
     local $SIG{__WARN__} = sub { $warning = shift };
     eval q{package HomoGenous; use superclass 'HomoGenous';};
-    like($warning, q{/^Class 'HomoGenous' tried to inherit from itself/},
-                                          '  self-inheriting');
+    like(
+        $warning,
+        q{/^Class 'HomoGenous' tried to inherit from itself/},
+        '  self-inheriting'
+    );
 }
 
 {
