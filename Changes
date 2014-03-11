@@ -6,6 +6,10 @@ Revision history for superclass
 
     - Worked around a test failure due to a bug in the pure-perl version.pm
 
+    [CHANGED]
+
+    - Updated dist.ini and support files
+
 0.002     2013-02-24 21:18:32 America/New_York
 
     - Renamed from 'inherit' to 'superclass'
